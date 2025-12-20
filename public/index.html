@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Self-Defense Cooking Recipes</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        #recipesList { margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <h1>Recipes</h1>
+    <ul id="recipesList">
+    </ul>
+    <script>
+        // Fetch list of recipes from the /recipes directory
+        async function loadRecipes() {
+            try {
+                const response = await fetch('/recipes/list.json');
+                const recipes = await response.json();
+                const list = document.getElementById('recipesList');
+                recipes.forEach(recipe => {
+                    const li = document.createElement('li');
+                    const link = document.createElement('a');
+                    link.href = '/recipes/' + recipe.slug + '/recipe.json';
+                    link.textContent = recipe.title;
+                    li.appendChild(link);
+                    list.appendChild(li);
+                });
+            } catch (err) {
+                document.getElementById('recipesList').textContent = 'No recipes found.';
+            }
+        }
+        loadRecipes();
+    </script>
+</body>
+</html>

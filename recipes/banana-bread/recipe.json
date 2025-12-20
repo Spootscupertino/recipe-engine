@@ -1,0 +1,51 @@
+{
+  "title": "Banana Bread",
+  "slug": "banana-bread",
+  "yield": 4,
+  "ingredients": [
+    {
+      "quantity": "to taste",
+      "unit": "",
+      "name": "salt"
+    },
+    {
+      "quantity": "to taste",
+      "unit": "",
+      "name": "black pepper"
+    },
+    {
+      "quantity": "1",
+      "unit": "tablespoon",
+      "name": "olive oil"
+    }
+  ],
+  "directions": [
+    "Prepare ingredients and preheat equipment as appropriate.",
+    "Season thoughtfully and cook with controlled heat.",
+    "Finish, taste, and adjust seasoning before serving."
+  ],
+  "nutrition": {
+    "calories": 0,
+    "sodium": 0,
+    "saturatedFat": 0,
+    "fiber": 0,
+    "sugar": 0
+  },
+  "macros": {
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0
+  },
+  "price": {
+    "perServing": 0,
+    "currency": "USD",
+    "total": 0
+  },
+  "difficulty": "Easy",
+  "time": {
+    "prepMinutes": 0,
+    "cookMinutes": 0,
+    "totalMinutes": 0
+  },
+  "notes": "Category: foundation Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Control heat and timing to avoid panic and recover cleanly."
+}

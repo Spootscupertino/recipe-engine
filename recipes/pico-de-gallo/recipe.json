@@ -3,19 +3,43 @@
   "slug": "pico-de-gallo",
   "yield": 4,
   "ingredients": [
-    { "quantity": 4, "unit": "", "name": "ripe tomatoes, diced" },
-    { "quantity": 0.5, "unit": "medium", "name": "white onion, finely diced" },
-    { "quantity": 0.5, "unit": "cup", "name": "fresh cilantro, chopped" },
-    { "quantity": 1, "unit": "", "name": "jalapeño or serrano, diced (seeded for less heat)" },
-    { "quantity": 2, "unit": "Tbsp", "name": "fresh lime juice" },
-    { "quantity": 0.75, "unit": "tsp", "name": "salt, to taste" }
+    {
+      "quantity": 4,
+      "unit": "",
+      "name": "ripe tomatoes, diced"
+    },
+    {
+      "quantity": 0.5,
+      "unit": "medium",
+      "name": "white onion, finely diced"
+    },
+    {
+      "quantity": 0.5,
+      "unit": "cup",
+      "name": "fresh cilantro, chopped"
+    },
+    {
+      "quantity": 1,
+      "unit": "",
+      "name": "jalape\u00f1o or serrano, diced (seeded for less heat)"
+    },
+    {
+      "quantity": 2,
+      "unit": "Tbsp",
+      "name": "fresh lime juice"
+    },
+    {
+      "quantity": 0.75,
+      "unit": "tsp",
+      "name": "salt, to taste"
+    }
   ],
   "directions": [
     "Dice tomatoes, onion, cilantro, and pepper evenly.",
     "Combine everything in a mixing bowl.",
     "Add fresh lime juice and salt.",
     "Mix well.",
-    "Rest 15–30 minutes for best flavor (optional)."
+    "Rest 15\u201330 minutes for best flavor (optional)."
   ],
   "nutrition": {
     "calories": 25,

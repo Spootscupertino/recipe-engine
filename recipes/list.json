@@ -1,6 +1,166 @@
 [
-	{
-		"slug": "pico-de-gallo",
-		"title": "Pico de Gallo"
-	}
+  {
+    "slug": "baked-chicken-thighs",
+    "title": "Baked Chicken Thighs"
+  },
+  {
+    "slug": "baked-salmon",
+    "title": "Baked Salmon"
+  },
+  {
+    "slug": "baked-ziti",
+    "title": "Baked Ziti"
+  },
+  {
+    "slug": "banana-bread",
+    "title": "Banana Bread"
+  },
+  {
+    "slug": "beef-burritos",
+    "title": "Beef Burritos"
+  },
+  {
+    "slug": "beef-chili",
+    "title": "Beef Chili"
+  },
+  {
+    "slug": "beef-stew",
+    "title": "Beef Stew"
+  },
+  {
+    "slug": "beef-tacos",
+    "title": "Beef Tacos"
+  },
+  {
+    "slug": "caesar-salad",
+    "title": "Caesar Salad"
+  },
+  {
+    "slug": "chicken-alfredo",
+    "title": "Chicken Alfredo"
+  },
+  {
+    "slug": "chicken-curry",
+    "title": "Chicken Curry"
+  },
+  {
+    "slug": "chicken-noodle-soup",
+    "title": "Chicken Noodle Soup"
+  },
+  {
+    "slug": "chicken-parmesan",
+    "title": "Chicken Parmesan"
+  },
+  {
+    "slug": "chicken-pot-pie",
+    "title": "Chicken Pot Pie"
+  },
+  {
+    "slug": "chicken-stir-fry",
+    "title": "Chicken Stir Fry"
+  },
+  {
+    "slug": "chicken-tikka-masala",
+    "title": "Chicken Tikka Masala"
+  },
+  {
+    "slug": "chocolate-chip-cookies",
+    "title": "Chocolate Chip Cookies"
+  },
+  {
+    "slug": "egg-fried-rice",
+    "title": "Egg Fried Rice"
+  },
+  {
+    "slug": "enchiladas",
+    "title": "Enchiladas"
+  },
+  {
+    "slug": "french-toast",
+    "title": "French Toast"
+  },
+  {
+    "slug": "fried-rice",
+    "title": "Fried Rice"
+  },
+  {
+    "slug": "grilled-cheese",
+    "title": "Grilled Cheese"
+  },
+  {
+    "slug": "hamburgers",
+    "title": "Hamburgers"
+  },
+  {
+    "slug": "lasagna",
+    "title": "Lasagna"
+  },
+  {
+    "slug": "mac-and-cheese",
+    "title": "Mac and Cheese"
+  },
+  {
+    "slug": "mashed-potatoes",
+    "title": "Mashed Potatoes"
+  },
+  {
+    "slug": "meatloaf",
+    "title": "Meatloaf"
+  },
+  {
+    "slug": "omelette",
+    "title": "Omelette"
+  },
+  {
+    "slug": "pancakes",
+    "title": "Pancakes"
+  },
+  {
+    "slug": "pico-de-gallo",
+    "title": "Pico de Gallo"
+  },
+  {
+    "slug": "pot-roast",
+    "title": "Pot Roast"
+  },
+  {
+    "slug": "quesadillas",
+    "title": "Quesadillas"
+  },
+  {
+    "slug": "rice-and-beans",
+    "title": "Rice and Beans"
+  },
+  {
+    "slug": "roast-chicken",
+    "title": "Roast Chicken"
+  },
+  {
+    "slug": "shepherds-pie",
+    "title": "Shepherd's Pie"
+  },
+  {
+    "slug": "shrimp-scampi",
+    "title": "Shrimp Scampi"
+  },
+  {
+    "slug": "simple-tomato-sauce",
+    "title": "Simple Tomato Sauce"
+  },
+  {
+    "slug": "spaghetti-and-meatballs",
+    "title": "Spaghetti and Meatballs"
+  },
+  {
+    "slug": "stuffed-peppers",
+    "title": "Stuffed Peppers"
+  },
+  {
+    "slug": "tacos",
+    "title": "Tacos"
+  },
+  {
+    "slug": "vegetable-soup",
+    "title": "Vegetable Soup"
+  }
 ]

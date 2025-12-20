@@ -1,0 +1,35 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Recipe",
+  "type": "object",
+  "required": ["title", "yield", "ingredients", "directions"],
+  "properties": {
+    "title": { "type": "string" },
+    "yield": { "type": ["string", "number"] },
+    "ingredients": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["quantity", "unit", "name"],
+        "properties": {
+          "quantity": { "type": ["number", "string"] },
+          "unit": { "type": "string" },
+          "name": { "type": "string" },
+          "notes": { "type": "string" }
+        }
+      }
+    },
+    "directions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "nutrition": {
+      "type": "object",
+      "properties": {
+        "calories": { "type": "number" },
+        "sodium": { "type": "number" },
+        "saturatedFat": { "type": "number" }
+      }
+    }
+  }
+}

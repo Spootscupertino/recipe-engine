@@ -81,7 +81,7 @@ function populateRecipe(recipe) {
   const portionInput = document.getElementById('portionInput');
   const ingredientsList = document.getElementById('ingredientsList');
   const directionsList = document.querySelector('.section-content ol');
-  const notesEl = document.querySelector('.section-content p');
+  const notesEl = document.querySelector('.section summary + .section-content p');
 
   const recipeYield = Number(recipe.yield) || 4;
   if (portionInput) portionInput.value = recipeYield;

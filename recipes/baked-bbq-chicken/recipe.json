@@ -3,31 +3,20 @@
   "slug": "baked-bbq-chicken",
   "yield": 4,
   "ingredients": [
-    {
-      "quantity": "1",
-      "unit": "lb",
-      "name": "protein"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "salt"
-    },
-    {
-      "quantity": "to taste",
-      "unit": "",
-      "name": "black pepper"
-    },
-    {
-      "quantity": "1",
-      "unit": "tablespoon",
-      "name": "olive oil"
-    }
+    { "quantity": 2, "unit": "lb", "name": "bone-in, skin-on chicken thighs or drumsticks" },
+    { "quantity": 1, "unit": "cup", "name": "BBQ sauce" },
+    { "quantity": 1, "unit": "tablespoon", "name": "olive oil" },
+    { "quantity": 1.25, "unit": "teaspoons", "name": "salt" },
+    { "quantity": 0.75, "unit": "teaspoon", "name": "black pepper" },
+    { "quantity": 0.5, "unit": "teaspoon", "name": "garlic powder" },
+    { "quantity": 0.5, "unit": "teaspoon", "name": "paprika" }
   ],
   "directions": [
-    "Preheat oven to high heat and line a sheet pan.",
-    "Season protein evenly and arrange with space between pieces.",
-    "Roast until cooked through and lightly browned, flipping if needed."
+    "Preheat oven to 400F (205C). Line a sheet pan with foil and set a rack on top if available.",
+    "Pat chicken dry. Toss with olive oil, salt, pepper, garlic powder, and paprika.",
+    "Arrange chicken skin-side up with space between pieces. Roast 25-30 minutes until 160F.",
+    "Brush generously with BBQ sauce. Return to oven 5-10 minutes until sauce is tacky and chicken reaches 165F.",
+    "Rest 5 minutes. Brush with a little more sauce before serving if desired."
   ],
   "nutrition": {
     "calories": 0,
@@ -48,9 +37,9 @@
   },
   "difficulty": "Easy",
   "time": {
-    "prepMinutes": 0,
-    "cookMinutes": 0,
-    "totalMinutes": 0
+    "prepMinutes": 10,
+    "cookMinutes": 35,
+    "totalMinutes": 45
   },
   "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips."
 }

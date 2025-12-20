@@ -218,6 +218,40 @@ h1 {
   margin: 0.25rem 0;
 }
 
+.ing-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.sub-btn {
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  color: #0f172a;
+  border-radius: 999px;
+  padding: 0.25rem 0.65rem;
+  font-family: var(--secondary-font);
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.sub-btn:hover { border-color: #cbd5e1; }
+
+.sub-panel {
+  margin: 0.35rem 0 0.1rem 0;
+  padding: 0.5rem 0.75rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+}
+
+.sub-panel ul {
+  margin: 0.25rem 0 0 1rem;
+  padding: 0;
+  list-style: disc;
+}
+
 .difficulty-row {
   display: grid;
   grid-template-columns: 1fr auto;

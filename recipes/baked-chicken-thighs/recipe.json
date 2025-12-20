@@ -3,12 +3,36 @@
   "slug": "baked-chicken-thighs",
   "yield": 4,
   "ingredients": [
-    { "quantity": 4, "unit": "pieces", "name": "chicken thighs" },
-    { "quantity": 2, "unit": "tablespoons", "name": "olive oil" },
-    { "quantity": 1, "unit": "teaspoon", "name": "salt" },
-    { "quantity": 0.5, "unit": "teaspoon", "name": "black pepper" },
-    { "quantity": 1, "unit": "teaspoon", "name": "garlic powder" },
-    { "quantity": 1, "unit": "teaspoon", "name": "paprika" }
+    {
+      "quantity": 4,
+      "unit": "pieces",
+      "name": "chicken thighs"
+    },
+    {
+      "quantity": 2,
+      "unit": "tablespoons",
+      "name": "olive oil"
+    },
+    {
+      "quantity": 1,
+      "unit": "teaspoon",
+      "name": "salt"
+    },
+    {
+      "quantity": 0.5,
+      "unit": "teaspoon",
+      "name": "black pepper"
+    },
+    {
+      "quantity": 1,
+      "unit": "teaspoon",
+      "name": "garlic powder"
+    },
+    {
+      "quantity": 1,
+      "unit": "teaspoon",
+      "name": "paprika"
+    }
   ],
   "directions": [
     "Preheat oven to 425F (220C).",

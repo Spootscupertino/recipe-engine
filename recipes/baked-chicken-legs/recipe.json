@@ -1,0 +1,56 @@
+{
+  "title": "Baked Chicken Legs",
+  "slug": "baked-chicken-legs",
+  "yield": 4,
+  "ingredients": [
+    {
+      "quantity": "1",
+      "unit": "lb",
+      "name": "protein"
+    },
+    {
+      "quantity": "to taste",
+      "unit": "",
+      "name": "salt"
+    },
+    {
+      "quantity": "to taste",
+      "unit": "",
+      "name": "black pepper"
+    },
+    {
+      "quantity": "1",
+      "unit": "tablespoon",
+      "name": "olive oil"
+    }
+  ],
+  "directions": [
+    "Preheat oven to high heat and line a sheet pan.",
+    "Season protein evenly and arrange with space between pieces.",
+    "Roast until cooked through and lightly browned, flipping if needed."
+  ],
+  "nutrition": {
+    "calories": 0,
+    "sodium": 0,
+    "saturatedFat": 0,
+    "fiber": 0,
+    "sugar": 0
+  },
+  "macros": {
+    "protein": 0,
+    "carbs": 0,
+    "fat": 0
+  },
+  "price": {
+    "perServing": 0,
+    "currency": "USD",
+    "total": 0
+  },
+  "difficulty": "Easy",
+  "time": {
+    "prepMinutes": 0,
+    "cookMinutes": 0,
+    "totalMinutes": 0
+  },
+  "notes": "Category: baked Source: Self-Defense Cooking (original) Interactive: ratioLock=False, heatModule=True, panicButton=True, substitutionEngine=True Self-defense lesson: Sheet-pan cooking teaches spacing, heat management, and recovery if timing slips."
+}

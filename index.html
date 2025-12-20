@@ -9,24 +9,117 @@
 <body>
   <div class="overlay">
     <div class="container">
-      <h1>Recipe Name</h1>
-      <details class="section">
+      <header class="topbar">
+        <div class="brand">
+          <h1>Recipe Name</h1>
+          <p class="subtitle" id="servingsLabel">Yield: 4 portions</p>
+        </div>
+        <div class="controls">
+          <details class="control" id="dietaryControl">
+            <summary>Dietary Restrictions</summary>
+            <div class="control-body">
+              <label><input type="checkbox" value="Vegetarian" class="dietary-check"> Vegetarian</label>
+              <label><input type="checkbox" value="Vegan" class="dietary-check"> Vegan</label>
+              <label><input type="checkbox" value="Gluten-Free" class="dietary-check"> Gluten-Free</label>
+              <label><input type="checkbox" value="Dairy-Free" class="dietary-check"> Dairy-Free</label>
+              <label><input type="checkbox" value="Nut-Free" class="dietary-check"> Nut-Free</label>
+              <div class="chips" id="dietaryChips"></div>
+            </div>
+          </details>
+
+          <details class="control" id="macrosControl">
+            <summary>Macros</summary>
+            <div class="control-body macros-grid">
+              <label>Protein (g)<input type="number" id="proteinInput" min="0" value="30"></label>
+              <label>Carbs (g)<input type="number" id="carbsInput" min="0" value="45"></label>
+              <label>Fat (g)<input type="number" id="fatInput" min="0" value="12"></label>
+              <div class="macro-summary" id="macroSummary">~384 kcal / serving</div>
+            </div>
+          </details>
+
+          <details class="control" id="nutritionControl">
+            <summary>Nutrition</summary>
+            <div class="control-body metrics-grid">
+              <label>Calories<input type="number" id="caloriesInput" min="0" value="420"></label>
+              <label>Sodium (mg)<input type="number" id="sodiumInput" min="0" value="480"></label>
+              <label>Sat. Fat (g)<input type="number" id="satFatInput" min="0" step="0.1" value="6"></label>
+              <div class="metric-value" id="nutritionSummary">420 kcal · 480 mg sodium · 6 g sat fat</div>
+            </div>
+          </details>
+
+          <details class="control" id="heatControl">
+            <summary>Heat Scale</summary>
+            <div class="control-body">
+              <input type="range" id="heatSlider" min="0" max="10" value="3">
+              <div class="heat-label" id="heatLabel">Mild (3/10)</div>
+            </div>
+          </details>
+
+          <details class="control" id="portionsControl">
+            <summary>Portions</summary>
+            <div class="control-body portions">
+              <label>Servings<input type="number" id="portionInput" min="1" value="4"></label>
+              <button id="portionApply" type="button">Scale ingredients</button>
+            </div>
+          </details>
+
+          <details class="control" id="priceControl">
+            <summary>Price</summary>
+            <div class="control-body price-grid">
+              <label>Price / serving<input type="number" id="pricePerServing" min="0" step="0.01" value="4.50"></label>
+              <label>Currency
+                <select id="currencySelect">
+                  <option value="USD" selected>USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                </select>
+              </label>
+              <div class="metric-value" id="priceSummary">$18.00 total</div>
+            </div>
+          </details>
+
+          <details class="control" id="difficultyControl">
+            <summary>Difficulty</summary>
+            <div class="control-body difficulty-row">
+              <select id="difficultySelect">
+                <option value="Easy" selected>Easy</option>
+                <option value="Medium">Medium</option>
+                <option value="Hard">Hard</option>
+              </select>
+              <span class="badge" id="difficultyBadge">Easy</span>
+            </div>
+          </details>
+
+          <details class="control" id="timeControl">
+            <summary>Time</summary>
+            <div class="control-body time-grid">
+              <label>Prep (min)<input type="number" id="prepTime" min="0" value="15"></label>
+              <label>Cook (min)<input type="number" id="cookTime" min="0" value="25"></label>
+              <div class="metric-value" id="timeSummary">~40 min total</div>
+            </div>
+          </details>
+        </div>
+      </header>
+
+      <details class="section" open>
         <summary>Method</summary>
         <div class="section-content">
           <p>Describe your cooking technique here. This is where you can introduce the philosophy or inspiration behind the dish.</p>
         </div>
       </details>
-      <details class="section">
+
+      <details class="section" open>
         <summary>Ingredients</summary>
         <div class="section-content">
-          <ul>
-            <li>1 cup of …</li>
-            <li>2 tablespoons of …</li>
-            <li>…</li>
+          <ul id="ingredientsList">
+            <li data-base-qty="1" data-unit="cup" data-name="rice"><span class="qty">1</span> <span class="unit">cup</span> <span class="name">rice</span></li>
+            <li data-base-qty="2" data-unit="tbsp" data-name="soy sauce"><span class="qty">2</span> <span class="unit">tbsp</span> <span class="name">soy sauce</span></li>
+            <li data-base-qty="0.5" data-unit="cup" data-name="chopped scallions"><span class="qty">0.5</span> <span class="unit">cup</span> <span class="name">chopped scallions</span></li>
           </ul>
         </div>
       </details>
-      <details class="section">
+
+      <details class="section" open>
         <summary>Execution</summary>
         <div class="section-content">
           <ol>
@@ -36,6 +129,7 @@
           </ol>
         </div>
       </details>
+
       <details class="section">
         <summary>Notes & Variations</summary>
         <div class="section-content">
@@ -44,6 +138,6 @@
       </details>
     </div>
   </div>
-  <script src="assets/script.js"></script>
+  <script type="module" src="components/main.js"></script>
 </body>
 </html>

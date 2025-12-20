@@ -28,7 +28,34 @@
       "properties": {
         "calories": { "type": "number" },
         "sodium": { "type": "number" },
-        "saturatedFat": { "type": "number" }
+        "saturatedFat": { "type": "number" },
+        "fiber": { "type": "number" },
+        "sugar": { "type": "number" }
+      }
+    },
+    "macros": {
+      "type": "object",
+      "properties": {
+        "protein": { "type": "number" },
+        "carbs": { "type": "number" },
+        "fat": { "type": "number" }
+      }
+    },
+    "price": {
+      "type": "object",
+      "properties": {
+        "perServing": { "type": "number" },
+        "currency": { "type": "string", "minLength": 3, "maxLength": 3 },
+        "total": { "type": "number" }
+      }
+    },
+    "difficulty": { "type": "string", "enum": ["Easy", "Medium", "Hard"] },
+    "time": {
+      "type": "object",
+      "properties": {
+        "prepMinutes": { "type": "number" },
+        "cookMinutes": { "type": "number" },
+        "totalMinutes": { "type": "number" }
       }
     }
   }

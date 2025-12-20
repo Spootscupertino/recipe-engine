@@ -1,28 +1,699 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Recipe Ingest</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #0b1220;
+      --accent: #f97316;
+      --accent-2: #22d3ee;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --border: #1f2937;
+      --error: #f87171;
+      --success: #34d399;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(120% 140% at 20% 20%, rgba(34,211,238,0.08), transparent),
+                  radial-gradient(120% 140% at 80% 0%, rgba(249,115,22,0.08), transparent),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 1.5rem 2rem 0.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+      letter-spacing: 0.02em;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      padding: 0.4rem 0.75rem;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      background: linear-gradient(120deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    }
+
+    main {
+      padding: 0 2rem 2rem;
+      display: grid;
+      grid-template-columns: 320px 1fr;
+      gap: 1rem;
+    }
+
+    .panel {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent), var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    }
+
+    .panel h2 {
+      margin: 0 0 0.6rem;
+      font-size: 1.1rem;
+    }
+
+    .dropzone {
+      border: 1px dashed var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      text-align: center;
+      color: var(--muted);
+      background: var(--panel-2);
+      cursor: pointer;
+      transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .dropzone:hover { border-color: var(--accent); color: var(--text); }
+    .dropzone.dragover { border-color: var(--accent-2); color: var(--accent-2); transform: translateY(-2px); }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+
+    button {
+      border: 1px solid var(--border);
+      background: linear-gradient(120deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02));
+      color: var(--text);
+      border-radius: 10px;
+      padding: 0.5rem 0.9rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: transform 0.12s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:hover { transform: translateY(-1px); border-color: var(--accent); box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+    textarea, pre {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 0.75rem;
+      font-family: "SFMono-Regular", Menlo, Monaco, Consolas, monospace;
+      font-size: 0.9rem;
+      line-height: 1.4;
+      min-height: 240px;
+      resize: vertical;
+    }
+
+    pre { overflow: auto; white-space: pre-wrap; min-height: 120px; }
+
+    .stack { display: grid; gap: 0.75rem; }
+
+    .status-row { display: flex; gap: 0.5rem; align-items: center; flex-wrap: wrap; }
+    .status-chip { padding: 0.35rem 0.6rem; border-radius: 999px; font-size: 0.85rem; border: 1px solid var(--border); background: var(--panel-2); }
+    .status-chip.ok { border-color: rgba(52,211,153,0.5); color: var(--success); }
+    .status-chip.fail { border-color: rgba(248,113,113,0.5); color: var(--error); }
+
+    ul { margin: 0; padding-left: 1.2rem; color: var(--muted); }
+    li { margin: 0.2rem 0; }
+
+    .small { color: var(--muted); font-size: 0.9rem; }
+
+    .slug-row { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; align-items: center; }
+    .slug-row input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .nutrition-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      align-items: end;
+    }
+
+    .nutrition-grid input[type="number"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .nutrition-actions { display: flex; justify-content: flex-start; }
+
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+      align-items: end;
+    }
+
+    .meta-grid input[type="number"],
+    .meta-grid select {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel-2);
+      color: var(--text);
+      padding: 0.55rem 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 960px) { main { grid-template-columns: 1fr; } }
+  </style>
 </head>
 <body>
-<h1>Recipe Ingest</h1>
-<input type="file" id="pdfUpload" accept="application/pdf">
-<div id="preview">
-  <h2>Extracted Recipe</h2>
-  <pre id="recipeJson"></pre>
-</div>
-<div id="issues">
-  <h2>Validation Issues</h2>
-  <ul id="issuesList"></ul>
-</div>
-<script>
-// Placeholder for PDF parsing and normalization logic.
-document.getElementById('pdfUpload').addEventListener('change', function(e) {
-  const file = e.target.files[0];
-  if (!file) return;
-  // In real implementation, parse PDF, produce canonical JSON, validate against schema.
-  document.getElementById('recipeJson').textContent = 'Parsing not implemented.';
-  document.getElementById('issuesList').innerHTML = '<li>Parser not implemented.</li>';
-});
-</script>
+  <header>
+    <div>
+      <h1>Recipe Ingest</h1>
+      <div class="pill">PDF → JSON → validate → download</div>
+    </div>
+    <div class="status-row" id="schemaStatus">
+      <span class="status-chip">Schema: loading…</span>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel stack">
+      <h2>Upload PDF</h2>
+      <div class="dropzone" id="dropzone">Drop PDF here or click to choose</div>
+      <input type="file" id="pdfInput" accept="application/pdf" style="display:none">
+      <div class="controls">
+        <button id="extractBtn" disabled>Extract text</button>
+        <button id="parseBtn" disabled>Parse to recipe</button>
+        <button id="validateBtn" disabled>Validate JSON</button>
+        <button id="downloadBtn" disabled>Download JSON</button>
+      </div>
+      <div class="stack" style="margin-top: 0.5rem;">
+        <label class="small">Slug (auto-generated from title; edit if needed)</label>
+        <div class="slug-row">
+          <input type="text" id="slugInput" placeholder="my-recipe" aria-label="Recipe slug" disabled>
+          <button id="slugRegenerateBtn" disabled>Regenerate slug</button>
+        </div>
+      </div>
+      <div class="small" id="fileInfo">No file selected.</div>
+    </section>
+
+    <section class="panel stack">
+      <h2>Raw PDF Text</h2>
+      <pre id="rawText">Waiting for PDF…</pre>
+      <h2>Recipe JSON (editable)</h2>
+      <textarea id="jsonOutput" spellcheck="false" aria-label="Recipe JSON"></textarea>
+      <div class="nutrition-grid">
+        <div>
+          <label class="small" for="caloriesInput">Calories</label>
+          <input type="number" id="caloriesInput" placeholder="e.g., 220">
+        </div>
+        <div>
+          <label class="small" for="sodiumInput">Sodium (mg)</label>
+          <input type="number" id="sodiumInput" placeholder="e.g., 480">
+        </div>
+        <div>
+          <label class="small" for="fatInput">Saturated Fat (g)</label>
+          <input type="number" id="fatInput" step="0.1" placeholder="e.g., 4.5">
+        </div>
+        <div>
+          <label class="small" for="fiberInput">Fiber (g)</label>
+          <input type="number" id="fiberInput" step="0.1" placeholder="e.g., 5">
+        </div>
+        <div>
+          <label class="small" for="sugarInput">Sugar (g)</label>
+          <input type="number" id="sugarInput" step="0.1" placeholder="e.g., 8">
+        </div>
+        <div class="nutrition-actions">
+          <button id="applyNutritionBtn">Apply details to JSON</button>
+        </div>
+      </div>
+      <div class="meta-grid">
+        <div>
+          <label class="small" for="proteinInput">Protein (g)</label>
+          <input type="number" id="proteinInput" placeholder="e.g., 30">
+        </div>
+        <div>
+          <label class="small" for="carbsInput">Carbs (g)</label>
+          <input type="number" id="carbsInput" placeholder="e.g., 45">
+        </div>
+        <div>
+          <label class="small" for="macroFatInput">Fat (g)</label>
+          <input type="number" id="macroFatInput" placeholder="e.g., 12">
+        </div>
+      </div>
+      <div class="meta-grid">
+        <div>
+          <label class="small" for="pricePerServingInput">Price / serving</label>
+          <input type="number" id="pricePerServingInput" step="0.01" placeholder="e.g., 4.50">
+        </div>
+        <div>
+          <label class="small" for="currencySelect">Currency</label>
+          <select id="currencySelect">
+            <option value="USD" selected>USD</option>
+            <option value="EUR">EUR</option>
+            <option value="GBP">GBP</option>
+          </select>
+        </div>
+        <div>
+          <label class="small">Total price</label>
+          <div id="priceTotal" class="small">--</div>
+        </div>
+        <div>
+          <label class="small" for="difficultySelect">Difficulty</label>
+          <select id="difficultySelect">
+            <option value="Easy" selected>Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+      </div>
+      <div class="meta-grid">
+        <div>
+          <label class="small" for="prepTimeInput">Prep (min)</label>
+          <input type="number" id="prepTimeInput" min="0" placeholder="e.g., 15">
+        </div>
+        <div>
+          <label class="small" for="cookTimeInput">Cook (min)</label>
+          <input type="number" id="cookTimeInput" min="0" placeholder="e.g., 25">
+        </div>
+        <div>
+          <label class="small">Total</label>
+          <div id="timeTotal" class="small">--</div>
+        </div>
+      </div>
+      <div class="status-row" id="validationStatus"></div>
+      <div class="small">Tip: edit the JSON, then re-validate and download. Schema: <code>schemas/recipe.schema.json</code></div>
+    </section>
+  </main>
+
+  <section class="panel" style="margin: 0 2rem 2rem;">
+    <h2>Validation Issues</h2>
+    <ul id="issuesList"></ul>
+  </section>
+
+  <section class="panel" style="margin: 0 2rem 2rem;">
+    <h2>recipes/list.json helper</h2>
+    <div class="small" id="listStatus">Loading current list…</div>
+    <ul id="listView"></ul>
+    <div class="stack" style="margin-top: 0.5rem;">
+      <label class="small">Add entry (slug + title)</label>
+      <div class="slug-row">
+        <input type="text" id="listSlug" placeholder="slug-from-title">
+        <input type="text" id="listTitle" placeholder="Recipe title">
+        <button id="addListBtn">Add & download</button>
+      </div>
+    </div>
+    <div class="small">This downloads an updated list.json; replace <code>recipes/list.json</code> with it.</div>
+  </section>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/4.0.379/pdf.min.js" integrity="sha512-K1PsTnP3OBdeJwWnTklfL2WJzwykL7ZFK7VBk0A1t5ghs42XHa5u+iVvgjV8XOtmR2E45mgjQkDBgfEhjF0nUg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ajv@8/dist/ajv7.min.js" integrity="sha256-8ej0uw06kcNJ3oGnSEbM2F2/VevDYO1n20sDUYD+VFI=" crossorigin="anonymous"></script>
+  <script>
+    const dropzone = document.getElementById('dropzone');
+    const fileInput = document.getElementById('pdfInput');
+    const fileInfo = document.getElementById('fileInfo');
+    const rawTextEl = document.getElementById('rawText');
+    const jsonOutput = document.getElementById('jsonOutput');
+    const issuesList = document.getElementById('issuesList');
+    const validationStatus = document.getElementById('validationStatus');
+    const schemaStatus = document.getElementById('schemaStatus');
+
+    const slugInput = document.getElementById('slugInput');
+    const slugRegenerateBtn = document.getElementById('slugRegenerateBtn');
+
+    const caloriesInput = document.getElementById('caloriesInput');
+    const sodiumInput = document.getElementById('sodiumInput');
+    const fatInput = document.getElementById('fatInput');
+    const fiberInput = document.getElementById('fiberInput');
+    const sugarInput = document.getElementById('sugarInput');
+    const proteinInput = document.getElementById('proteinInput');
+    const carbsInput = document.getElementById('carbsInput');
+    const macroFatInput = document.getElementById('macroFatInput');
+    const pricePerServingInput = document.getElementById('pricePerServingInput');
+    const currencySelect = document.getElementById('currencySelect');
+    const priceTotal = document.getElementById('priceTotal');
+    const difficultySelect = document.getElementById('difficultySelect');
+    const prepTimeInput = document.getElementById('prepTimeInput');
+    const cookTimeInput = document.getElementById('cookTimeInput');
+    const timeTotal = document.getElementById('timeTotal');
+    const applyNutritionBtn = document.getElementById('applyNutritionBtn');
+
+    const listStatus = document.getElementById('listStatus');
+    const listView = document.getElementById('listView');
+    const listSlug = document.getElementById('listSlug');
+    const listTitle = document.getElementById('listTitle');
+    const addListBtn = document.getElementById('addListBtn');
+
+    const extractBtn = document.getElementById('extractBtn');
+    const parseBtn = document.getElementById('parseBtn');
+    const validateBtn = document.getElementById('validateBtn');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let selectedFile = null;
+    let schema = null;
+    let validateFn = null;
+    let lastExtractedText = '';
+    let currentList = [];
+
+    // Load schema for validation
+    async function loadSchema() {
+      try {
+        const res = await fetch('../../schemas/recipe.schema.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        schema = await res.json();
+        const ajv = new Ajv({ allErrors: true });
+        validateFn = ajv.compile(schema);
+        schemaStatus.innerHTML = '<span class="status-chip ok">Schema loaded</span>';
+      } catch (err) {
+        schemaStatus.innerHTML = '<span class="status-chip fail">Schema failed: ' + err.message + '</span>';
+      }
+    }
+    loadSchema();
+
+    // Dropzone wiring
+    dropzone.addEventListener('click', () => fileInput.click());
+    dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+    dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+    dropzone.addEventListener('drop', e => {
+      e.preventDefault();
+      dropzone.classList.remove('dragover');
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+    fileInput.addEventListener('change', e => {
+      if (e.target.files && e.target.files[0]) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      if (!file || file.type !== 'application/pdf') {
+        fileInfo.textContent = 'Please select a PDF file.';
+        return;
+      }
+      selectedFile = file;
+      fileInfo.textContent = 'Selected: ' + file.name + ' (' + Math.round(file.size / 1024) + ' KB)';
+      extractBtn.disabled = false;
+      parseBtn.disabled = true;
+      validateBtn.disabled = true;
+      downloadBtn.disabled = true;
+      rawTextEl.textContent = 'Ready to extract…';
+      jsonOutput.value = '';
+      slugInput.value = '';
+      slugInput.disabled = true;
+      slugRegenerateBtn.disabled = true;
+      issuesList.innerHTML = '';
+      validationStatus.innerHTML = '';
+    }
+
+    extractBtn.addEventListener('click', async () => {
+      if (!selectedFile) return;
+      extractBtn.disabled = true;
+      rawTextEl.textContent = 'Extracting…';
+      try {
+        lastExtractedText = await extractPdfText(selectedFile);
+        rawTextEl.textContent = lastExtractedText || 'No text found in PDF.';
+        parseBtn.disabled = !lastExtractedText;
+      } catch (err) {
+        rawTextEl.textContent = 'Failed to extract: ' + err.message;
+      } finally {
+        extractBtn.disabled = false;
+      }
+    });
+
+    parseBtn.addEventListener('click', () => {
+      if (!lastExtractedText) return;
+      const recipe = deriveRecipeFromText(lastExtractedText);
+      recipe.slug = slugify(recipe.title);
+      jsonOutput.value = JSON.stringify(recipe, null, 2);
+      slugInput.value = recipe.slug;
+      slugInput.disabled = false;
+      slugRegenerateBtn.disabled = false;
+      validateBtn.disabled = false;
+      downloadBtn.disabled = false;
+      issuesList.innerHTML = '';
+      validationStatus.innerHTML = '';
+    });
+
+    slugRegenerateBtn.addEventListener('click', () => {
+      try {
+        const parsed = JSON.parse(jsonOutput.value || '{}');
+        const slug = slugify(parsed.title || 'recipe');
+        parsed.slug = slug;
+        jsonOutput.value = JSON.stringify(parsed, null, 2);
+        slugInput.value = slug;
+      } catch (err) {
+        validationStatus.innerHTML = '<span class="status-chip fail">Cannot regenerate slug: invalid JSON</span>';
+      }
+    });
+
+    slugInput.addEventListener('input', () => {
+      const slug = slugify(slugInput.value || '');
+      slugInput.value = slug;
+      try {
+        const parsed = JSON.parse(jsonOutput.value || '{}');
+        parsed.slug = slug;
+        jsonOutput.value = JSON.stringify(parsed, null, 2);
+      } catch (err) {
+        validationStatus.innerHTML = '<span class="status-chip fail">Cannot apply slug: invalid JSON</span>';
+      }
+    });
+
+    validateBtn.addEventListener('click', () => {
+      if (!validateFn) {
+        validationStatus.innerHTML = '<span class="status-chip fail">Schema not loaded</span>';
+        return;
+      }
+      let parsed;
+      try {
+        parsed = JSON.parse(jsonOutput.value || '{}');
+      } catch (err) {
+        validationStatus.innerHTML = '<span class="status-chip fail">Invalid JSON</span>';
+        issuesList.innerHTML = '<li>JSON parse error: ' + err.message + '</li>';
+        return;
+      }
+      const valid = validateFn(parsed);
+      if (valid) {
+        validationStatus.innerHTML = '<span class="status-chip ok">Valid</span>';
+        issuesList.innerHTML = '<li style="color: var(--success);">No issues.</li>';
+      } else {
+        validationStatus.innerHTML = '<span class="status-chip fail">Invalid</span>';
+        issuesList.innerHTML = (validateFn.errors || []).map(err => '<li>' + err.instancePath + ' ' + err.message + '</li>').join('');
+      }
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      const blob = new Blob([jsonOutput.value], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'recipe.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    async function extractPdfText(file) {
+      const arrayBuffer = await file.arrayBuffer();
+      const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+      const parts = [];
+      for (let i = 1; i <= pdf.numPages; i++) {
+        const page = await pdf.getPage(i);
+        const content = await page.getTextContent();
+        const text = content.items.map(item => item.str).join(' ');
+        parts.push(text);
+      }
+      return parts.join('\n');
+    }
+
+    function deriveRecipeFromText(text) {
+      const lines = text.split(/\r?\n|\s{2,}/).map(l => l.trim()).filter(Boolean);
+      const lowerLines = lines.map(l => l.toLowerCase());
+
+      // Title: first non-empty line
+      const title = lines[0] || 'Untitled recipe';
+
+      // Yield: look for serves/yield lines
+      let yieldVal = '';
+      const yieldIdx = lowerLines.findIndex(l => /serves|yield|makes/.test(l));
+      if (yieldIdx >= 0) {
+        yieldVal = lines[yieldIdx].replace(/^(serves|yield|makes)[:\s]*/i, '').trim();
+      }
+
+      const ingredients = [];
+      const directions = [];
+
+      // Find ingredients section
+      const ingStart = lowerLines.findIndex(l => /^ingredients/.test(l));
+      let ingEnd = -1;
+      if (ingStart >= 0) {
+        ingEnd = lowerLines.slice(ingStart + 1).findIndex(l => /^directions|^method|^steps|^instructions/.test(l));
+        ingEnd = ingEnd >= 0 ? ingStart + 1 + ingEnd : lines.length;
+        for (let i = ingStart + 1; i < ingEnd; i++) {
+          const parsed = parseIngredientLine(lines[i]);
+          if (parsed.name) ingredients.push(parsed);
+        }
+      }
+
+      // Directions section
+      const dirStart = lowerLines.findIndex(l => /^directions|^method|^steps|^instructions/.test(l));
+      if (dirStart >= 0) {
+        const dirEnd = lowerLines.slice(dirStart + 1).findIndex(l => /^nutrition|^notes|^variations|^tips/.test(l));
+        const endIdx = dirEnd >= 0 ? dirStart + 1 + dirEnd : lines.length;
+        for (let i = dirStart + 1; i < endIdx; i++) {
+          if (lines[i]) directions.push(lines[i]);
+        }
+      }
+
+      return {
+        title,
+        yield: yieldVal || 'TBD',
+        ingredients,
+        directions: directions.length ? directions : ['Step 1: TBD'],
+        nutrition: { calories: 0, sodium: 0, saturatedFat: 0, fiber: 0, sugar: 0 },
+        macros: { protein: 0, carbs: 0, fat: 0 },
+        price: { perServing: 0, currency: 'USD', total: 0 },
+        difficulty: 'Easy',
+        time: { prepMinutes: 0, cookMinutes: 0, totalMinutes: 0 }
+      };
+    }
+
+    function parseIngredientLine(line) {
+      // Very loose parsing; user can edit output.
+      const match = line.match(/^(\d+[\d\/\.\s]*)([a-zA-Z]+)?\s+(.*)$/);
+      if (match) {
+        const quantityRaw = match[1].trim();
+        const unit = (match[2] || '').trim();
+        const name = match[3] ? match[3].trim() : '';
+        return { quantity: quantityRaw || '', unit, name };
+      }
+      return { quantity: '', unit: '', name: line };
+    }
+
+    function slugify(str) {
+      return (str || '')
+        .toString()
+        .normalize('NFKD')
+        .replace(/[^\w\s-]/g, '')
+        .trim()
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .toLowerCase();
+    }
+
+    function updateTimeTotal() {
+      const prep = Math.max(0, Number(prepTimeInput?.value) || 0);
+      const cook = Math.max(0, Number(cookTimeInput?.value) || 0);
+      const total = prep + cook;
+      if (timeTotal) timeTotal.textContent = `${total} min`;
+      return { prep, cook, total };
+    }
+
+    [prepTimeInput, cookTimeInput].forEach(input => {
+      if (input) input.addEventListener('input', updateTimeTotal);
+    });
+    updateTimeTotal();
+
+    applyNutritionBtn.addEventListener('click', () => {
+      try {
+        const parsed = JSON.parse(jsonOutput.value || '{}');
+        const nutrition = {};
+        if (caloriesInput.value) nutrition.calories = Number(caloriesInput.value);
+        if (sodiumInput.value) nutrition.sodium = Number(sodiumInput.value);
+        if (fatInput.value) nutrition.saturatedFat = Number(fatInput.value);
+        if (fiberInput.value) nutrition.fiber = Number(fiberInput.value);
+        if (sugarInput.value) nutrition.sugar = Number(sugarInput.value);
+        parsed.nutrition = nutrition;
+
+        const macros = {};
+        if (proteinInput.value) macros.protein = Number(proteinInput.value);
+        if (carbsInput.value) macros.carbs = Number(carbsInput.value);
+        if (macroFatInput.value) macros.fat = Number(macroFatInput.value);
+        parsed.macros = macros;
+
+        const price = {};
+        const perServing = Number(pricePerServingInput.value) || 0;
+        const currency = currencySelect.value || 'USD';
+        price.perServing = perServing;
+        price.currency = currency;
+        const totalPrice = perServing * Math.max(1, Number(parsed.yield) || 1);
+        price.total = totalPrice;
+        if (priceTotal) priceTotal.textContent = `${currency} ${totalPrice.toFixed(2)}`;
+        parsed.price = price;
+
+        if (difficultySelect.value) parsed.difficulty = difficultySelect.value;
+
+        const { prep, cook, total } = updateTimeTotal();
+        parsed.time = { prepMinutes: prep, cookMinutes: cook, totalMinutes: total };
+
+        jsonOutput.value = JSON.stringify(parsed, null, 2);
+        validationStatus.innerHTML = '<span class="status-chip ok">Details applied</span>';
+      } catch (err) {
+        validationStatus.innerHTML = '<span class="status-chip fail">Cannot apply details: invalid JSON</span>';
+      }
+    });
+
+    // list.json helper
+    async function loadList() {
+      try {
+        const res = await fetch('../../recipes/list.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        currentList = await res.json();
+        listStatus.textContent = 'Loaded ' + currentList.length + ' entries.';
+        renderList();
+      } catch (err) {
+        listStatus.textContent = 'Could not load list.json: ' + err.message;
+      }
+    }
+
+    function renderList() {
+      listView.innerHTML = currentList.map(item => '<li><code>' + item.slug + '</code> — ' + item.title + '</li>').join('');
+    }
+
+    addListBtn.addEventListener('click', () => {
+      const slug = slugify(listSlug.value || '');
+      const title = (listTitle.value || '').trim();
+      if (!slug || !title) {
+        listStatus.textContent = 'Need both slug and title.';
+        return;
+      }
+      if (currentList.some(item => item.slug === slug)) {
+        listStatus.textContent = 'Slug already exists; edit it to be unique.';
+        return;
+      }
+      const updated = [...currentList, { slug, title }];
+      const blob = new Blob([JSON.stringify(updated, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'list.json';
+      a.click();
+      URL.revokeObjectURL(url);
+      listStatus.textContent = 'Downloaded updated list.json with ' + updated.length + ' entries.';
+      currentList = updated;
+      renderList();
+    });
+
+    loadList();
+  </script>
 </body>
 </html>

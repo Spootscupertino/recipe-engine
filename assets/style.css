@@ -24,7 +24,7 @@ body {
 }
 
 .container {
-  max-width: 700px;
+  max-width: 960px;
   margin: auto;
   padding: 2rem;
 }
@@ -32,13 +32,218 @@ body {
 h1 {
   font-family: var(--primary-font);
   font-size: 2rem;
-  text-align: center;
-  margin-bottom: 1rem;
+  margin: 0;
 }
 
-.recipe-card {
-  background: url('card-texture.jpg.png') repeat, rgba(255, 255, 255, 0.9);
+.subtitle {
+  margin: 0.15rem 0 0;
+  font-family: var(--secondary-font);
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.topbar {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.75rem;
+}
+
+.control {
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.control summary {
+  cursor: pointer;
+  padding: 0.7rem 0.9rem;
+  font-family: var(--secondary-font);
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+
+.control summary::-webkit-details-marker { display: none; }
+
+.control-body {
+  padding: 0.75rem 0.9rem 0.9rem;
+  display: grid;
+  gap: 0.5rem;
+  font-family: var(--secondary-font);
+}
+
+.control label {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.chip {
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  font-size: 0.85rem;
+}
+
+.macros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 0.5rem;
+}
+
+.metrics-grid,
+.price-grid,
+.time-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 0.5rem;
+}
+
+.macros-grid input,
+.portions input,
+.metrics-grid input,
+.price-grid input,
+.time-grid input,
+.price-grid select,
+.control input[type="number"],
+.control input[type="range"] {
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.4rem 0.5rem;
+  font-family: var(--secondary-font);
+  font-size: 0.95rem;
+}
+
+.price-grid select,
+.difficulty-row select {
+  background: #fff;
+  height: 36px;
+}
+
+.macro-summary {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #0f172a;
+  align-self: center;
+}
+
+.heat-label {
+  font-family: var(--secondary-font);
+  font-weight: 600;
+  color: #b91c1c;
+}
+
+.metric-value {
+  font-family: var(--secondary-font);
+  font-weight: 600;
+  color: #0f172a;
+  align-self: center;
+}
+
+.portions {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: end;
+}
+
+.portions button {
+  border: 1px solid #e2e8f0;
+  background: #0f172a;
+  color: #fff;
+  border-radius: 8px;
+  padding: 0.5rem 0.9rem;
+  cursor: pointer;
+  font-family: var(--secondary-font);
+}
+
+.section {
+  border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.section summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 0.9rem 1rem;
+  font-family: var(--secondary-font);
+  font-weight: 700;
+  background: #f8fafc;
+}
+
+.section summary::-webkit-details-marker { display: none; }
+
+.section-content {
+  padding: 1rem;
+  font-family: var(--secondary-font);
+  color: #444;
+}
+
+.section-content ul,
+.section-content ol {
+  margin: 0.5rem 0 0.25rem 1.25rem;
+}
+
+.section-content li {
+  margin: 0.25rem 0;
+}
+
+.difficulty-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  border: 1px solid #e2e8f0;
+  background: #e0f2fe;
+  color: #0f172a;
+  font-family: var(--secondary-font);
+  font-weight: 600;
+}
+
+.badge[data-level="medium"] {
+  background: #fef9c3;
+  border-color: #fcd34d;
+}
+
+.badge[data-level="hard"] {
+  background: #fee2e2;
+  border-color: #fca5a5;
 }

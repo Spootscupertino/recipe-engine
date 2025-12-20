@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Recipe Ingest</title>
+</head>
+<body>
+<h1>Recipe Ingest</h1>
+<input type="file" id="pdfUpload" accept="application/pdf">
+<div id="preview">
+  <h2>Extracted Recipe</h2>
+  <pre id="recipeJson"></pre>
+</div>
+<div id="issues">
+  <h2>Validation Issues</h2>
+  <ul id="issuesList"></ul>
+</div>
+<script>
+// Placeholder for PDF parsing and normalization logic.
+document.getElementById('pdfUpload').addEventListener('change', function(e) {
+  const file = e.target.files[0];
+  if (!file) return;
+  // In real implementation, parse PDF, produce canonical JSON, validate against schema.
+  document.getElementById('recipeJson').textContent = 'Parsing not implemented.';
+  document.getElementById('issuesList').innerHTML = '<li>Parser not implemented.</li>';
+});
+</script>
+</body>
+</html>

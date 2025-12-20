@@ -3,66 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Recipe Template</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500&display=swap');
-:root {
-  --primary-font: 'Merriweather', serif;
-  --secondary-font: 'Inter', sans-serif;
-}
-html, body {
-  margin: 0;
-  padding: 0;
-}
-body {
-  font-family: var(--primary-font);
-  color: #333;
-  background: url('bg-dojo.jpg.png') no-repeat center center fixed;
-  background-size: cover;
-}
-.overlay {
-  background-color: rgba(255,255,255,0.85);
-  min-height: 100vh;
-  padding: 2rem 0;
-}
-.container {
-  max-width: 700px;
-  margin: 0 auto;
-  padding: 2rem;
-}
-h1 {
-  font-family: var(--primary-font);
-  font-size: 3rem;
-  text-align: center;
-  margin-bottom: 2rem;
-}
-.section {
-  border-top: 1px solid rgba(0,0,0,0.25);
-  margin-bottom: 0.5rem;
-}
-.section summary {
-  font-family: var(--secondary-font);
-  font-size: 1.1rem;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  cursor: pointer;
-  padding: 1rem;
-  list-style: none;
-  background: url('card-texture.jpg.png') center/cover no-repeat;
-  user-select: none;
-  border: 1px solid rgba(0,0,0,0.1);
-}
-.section summary::-webkit-details-marker {
-  display: none;
-}
-.section[open] summary {
-  border-bottom: 1px solid rgba(0,0,0,0.25);
-}
-.section-content {
-  padding: 1rem;
-  font-family: var(--primary-font);
-  line-height: 1.6;
-}
-</style>
+<link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
 <div class="overlay">
@@ -95,25 +36,13 @@ h1 {
       </div>
     </details>
     <details class="section">
-      <summary>Notes & Variations</summary>
+      <summary>Notes &amp; Variations</summary>
       <div class="section-content">
         <p>Add any personal notes, variations, or serving suggestions here.</p>
       </div>
     </details>
   </div>
 </div>
-<script>
-document.querySelectorAll('.section').forEach(function(section) {
-  section.addEventListener('toggle', function() {
-    if (section.open) {
-      document.querySelectorAll('.section').forEach(function(other) {
-        if (other !== section) {
-          other.removeAttribute('open');
-        }
-      });
-    }
-  });
-});
-</script>
+<script src="assets/script.js"></script>
 </body>
 </html>

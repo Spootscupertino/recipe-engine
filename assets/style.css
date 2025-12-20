@@ -55,6 +55,63 @@ h1 {
   gap: 0.25rem;
 }
 
+.search-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.search-card label {
+  font-family: var(--secondary-font);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #0f172a;
+}
+
+.search-card input[type="search"] {
+  width: 100%;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 0.45rem 0.6rem;
+  font-family: var(--secondary-font);
+  font-size: 0.95rem;
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 0.25rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.25rem 0;
+  list-style: none;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
+  max-height: 280px;
+  overflow-y: auto;
+  z-index: 10;
+}
+
+.search-results li {
+  padding: 0.55rem 0.75rem;
+  cursor: pointer;
+  font-family: var(--secondary-font);
+  font-size: 0.95rem;
+}
+
+.search-results li:hover,
+.search-results li:focus {
+  background: #e2e8f0;
+}
+
 .controls {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

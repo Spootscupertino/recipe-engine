@@ -6,9 +6,13 @@ export function initPortions({ root, ingredientsList, servingsLabel, baseServing
   const applyBtn = root.querySelector('#portionApply');
   if (!input || !applyBtn) return;
 
+  // Persist the base servings on the control so it can be updated when recipes change.
+  root.dataset.baseServings = String(baseServings);
+
   function scale() {
-    const target = Math.max(1, Number(input.value) || baseServings);
-    const multiplier = target / baseServings;
+    const currentBase = Math.max(1, Number(root.dataset.baseServings) || baseServings);
+    const target = Math.max(1, Number(input.value) || currentBase);
+    const multiplier = target / currentBase;
 
     ingredientsList.querySelectorAll('li').forEach(li => {
       const baseQty = Number(li.getAttribute('data-base-qty'));
@@ -23,6 +27,15 @@ export function initPortions({ root, ingredientsList, servingsLabel, baseServing
     }
   }
 
+  function setBase(newBase) {
+    const nextBase = Math.max(1, Number(newBase) || baseServings);
+    root.dataset.baseServings = String(nextBase);
+    if (input) input.value = nextBase;
+    scale();
+  }
+
   applyBtn.addEventListener('click', scale);
   scale();
+
+  return { setBase, scale };
 }

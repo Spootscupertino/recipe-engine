@@ -7,6 +7,10 @@
   --accent: #2f4f3b;
   --ink: #152018;
   --paper-edge: #d8cdb8;
+  --wood-base: #e3c9a8;
+  --wood-grain: #d1b389;
+  --wood-edge: #b08968;
+  --rope: #d7b380;
 }
 
 html, body {
@@ -69,8 +73,37 @@ h1 {
   padding: 0.75rem 0.9rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  background: linear-gradient(145deg, rgba(245,239,229,0.96), rgba(233,224,208,0.9));
-  box-shadow: 0 12px 26px rgba(17, 24, 39, 0.14);
+  background: linear-gradient(120deg, rgba(227,201,168,0.96), rgba(209,179,137,0.9));
+  box-shadow: 0 12px 26px rgba(17, 24, 39, 0.14), 0 0 0 2px rgba(176,137,104,0.15);
+  transform: rotate(-0.4deg);
+}
+
+.search-card::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 82px;
+  height: 14px;
+  background: linear-gradient(90deg, var(--rope) 0%, #c9a26d 50%, var(--rope) 100%);
+  border-radius: 999px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+  pointer-events: none;
+}
+
+.search-card::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: var(--wood-edge);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  pointer-events: none;
 }
 
 .search-card label {
@@ -97,7 +130,7 @@ h1 {
   margin: 0;
   padding: 0.25rem 0;
   list-style: none;
-  background: #fff;
+  background: rgba(245,239,229,0.97);
   border: 1px solid #e2e8f0;
   border-radius: 10px;
   box-shadow: 0 8px 18px rgba(15, 23, 42, 0.12);
@@ -127,9 +160,46 @@ h1 {
 .control {
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  background: linear-gradient(145deg, rgba(245,239,229,0.96), rgba(233,224,208,0.9));
-  box-shadow: 0 12px 26px rgba(17, 24, 39, 0.14);
+  background: linear-gradient(120deg, rgba(227,201,168,0.96), rgba(209,179,137,0.9));
+  box-shadow: 0 12px 26px rgba(17, 24, 39, 0.14), 0 0 0 2px rgba(176,137,104,0.15);
+  transform: rotate(-0.5deg);
   overflow: hidden;
+}
+
+.controls .control:nth-child(2n) {
+  transform: rotate(0.6deg);
+}
+
+.controls .control:nth-child(3n) {
+  transform: rotate(-0.2deg);
+}
+
+.control::before {
+  content: '';
+  position: absolute;
+  top: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 88px;
+  height: 16px;
+  background: linear-gradient(90deg, var(--rope) 0%, #c9a26d 50%, var(--rope) 100%);
+  border-radius: 999px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+  pointer-events: none;
+}
+
+.control::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: var(--wood-edge);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  pointer-events: none;
 }
 
 .control summary {
@@ -251,10 +321,47 @@ h1 {
 .section {
   border: 1px solid rgba(0, 0, 0, 0.08);
   border-radius: 14px;
-  background: linear-gradient(145deg, rgba(245,239,229,0.96), rgba(233,224,208,0.9));
-  box-shadow: 0 14px 32px rgba(17, 24, 39, 0.14);
+  background: linear-gradient(120deg, rgba(227,201,168,0.96), rgba(209,179,137,0.9));
+  box-shadow: 0 14px 32px rgba(17, 24, 39, 0.14), 0 0 0 2px rgba(176,137,104,0.15);
+  transform: rotate(0.4deg);
   margin-bottom: 1rem;
   overflow: hidden;
+}
+
+.section:nth-of-type(2n) {
+  transform: rotate(-0.45deg);
+}
+
+.section:nth-of-type(3n) {
+  transform: rotate(0.2deg);
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 96px;
+  height: 16px;
+  background: linear-gradient(90deg, var(--rope) 0%, #c9a26d 50%, var(--rope) 100%);
+  border-radius: 999px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.12);
+  pointer-events: none;
+}
+
+.section::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 14px;
+  height: 14px;
+  background: var(--wood-edge);
+  border-radius: 50%;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  pointer-events: none;
 }
 
 .section summary {
@@ -263,7 +370,7 @@ h1 {
   padding: 0.9rem 1rem;
   font-family: var(--secondary-font);
   font-weight: 700;
-  background: linear-gradient(90deg, rgba(225,218,204,0.9), rgba(245,239,229,0.9));
+  background: linear-gradient(90deg, rgba(210,183,143,0.92), rgba(227,201,168,0.9));
   color: var(--ink);
 }
 

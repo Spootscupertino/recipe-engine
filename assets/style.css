@@ -1,8 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Inter:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Work+Sans:wght@400;500;600&display=swap');
 
 :root {
-  --primary-font: 'Merriweather', serif;
-  --secondary-font: 'Inter', sans-serif;
+  --primary-font: 'Playfair Display', serif;
+  --secondary-font: 'Work Sans', sans-serif;
+  --card-texture: url('card-texture.jpg.png');
+  --card-bg: rgba(255, 255, 255, 0.9);
 }
 
 html, body {
@@ -18,7 +20,7 @@ body {
 }
 
 .overlay {
-  background-color: rgba(255, 255, 255, 0.92);
+  background-color: rgba(255, 255, 255, 0.86);
   min-height: 100vh;
   padding: 2rem 0;
 }
@@ -31,7 +33,7 @@ body {
 
 h1 {
   font-family: var(--primary-font);
-  font-size: 2rem;
+  font-size: 2.2rem;
   margin: 0;
 }
 
@@ -62,9 +64,10 @@ h1 {
   gap: 0.35rem;
   padding: 0.75rem 0.9rem;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.94), rgba(248,250,252,0.9)), var(--card-texture);
+  background-size: 320px 320px, cover;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
 }
 
 .search-card label {
@@ -120,9 +123,10 @@ h1 {
 
 .control {
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.9);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.94), rgba(248,250,252,0.9)), var(--card-texture);
+  background-size: 320px 320px, cover;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
   overflow: hidden;
 }
 
@@ -242,9 +246,10 @@ h1 {
 
 .section {
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.92);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(255,255,255,0.94), rgba(248,250,252,0.9)), var(--card-texture);
+  background-size: 320px 320px, cover;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
   margin-bottom: 1rem;
   overflow: hidden;
 }

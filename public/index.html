@@ -3,16 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>Self-Defense Cooking Recipes</title>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <style>
         body { font-family: Arial, sans-serif; padding: 20px; }
         #recipesList { margin-top: 20px; }
+        .warn { padding: 12px 14px; border: 2px solid #b42318; background: #fff5f5; border-radius: 10px; max-width: 900px; }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; }
     </style>
 </head>
 <body>
+    <div class="warn">
+        <div><strong>Warning:</strong> You are rendering <span class="mono">public/index.html</span> (legacy/stale entrypoint).</div>
+        <div>If Live Server/Preview is showing this page, it is not serving the repo root, so it cannot load <span class="mono">/self-defense-cooking</span>.</div>
+        <div>Fix: start Live Server from <span class="mono">/Users/ericeldridge/Desktop/recipe-engine</span> (repo root).</div>
+    </div>
     <h1>Recipes</h1>
     <ul id="recipesList">
     </ul>
     <script>
+        window.__RECIPE_ENGINE_BUILD__ = {
+          entrypoint: "recipe-engine/public/index.html",
+          sourceFile: "/Users/ericeldridge/Desktop/recipe-engine/public/index.html",
+          repo: { name: "recipe-engine", commit: "f16aca3" },
+          timestamp: new Date().toISOString()
+        };
+        console.log('[recipe-engine build-stamp]', window.__RECIPE_ENGINE_BUILD__);
+
         // Fetch list of recipes from the /recipes directory
         async function loadRecipes() {
             try {
@@ -33,5 +51,13 @@
         }
         loadRecipes();
     </script>
+        <footer id="buildStamp" class="mono" style="margin-top:16px; opacity:0.85; font-size:12px;"></footer>
+        <script>
+            (function () {
+                const b = window.__RECIPE_ENGINE_BUILD__;
+                const el = document.getElementById('buildStamp');
+                if (el) el.textContent = `ENTRY=${b.entrypoint} | FILE=${b.sourceFile} | root@${b.repo.commit} | time=${b.timestamp} | location=${location.href}`;
+            })();
+        </script>
 </body>
 </html>

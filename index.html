@@ -4,9 +4,20 @@
 <head>
   <meta charset="UTF-8">
   <title>Recipe Template</title>
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <!-- Make root previews load the real app assets/routes -->
   <base href="self-defense-cooking/">
   <link rel="stylesheet" href="assets/style.css?v=20251226-2">
+  <script>
+    window.__RECIPE_ENGINE_BUILD__ = {
+      entrypoint: "recipe-engine/index.html",
+      sourceFile: "/Users/ericeldridge/Desktop/recipe-engine/index.html",
+      repo: { name: "recipe-engine", commit: "f16aca3" },
+      nestedRepo: { name: "self-defense-cooking", commit: "5f72a2b" }
+    };
+  </script>
 </head>
 <body>
   <div class="overlay">
@@ -195,5 +206,82 @@
     </div>
   </div>
   <script type="module" src="components/main.js"></script>
+  <footer id="buildStamp" style="padding:12px 16px; font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace; font-size: 12px; opacity: 0.85;">
+    Build stamp loading…
+  </footer>
+  <script>
+    (function () {
+      const build = window.__RECIPE_ENGINE_BUILD__ || {};
+      const baseEl = document.querySelector('base');
+      const baseHref = baseEl ? baseEl.getAttribute('href') : '(none)';
+      const resolvedBase = baseEl ? baseEl.href : document.baseURI;
+      const stamp = {
+        entrypoint: build.entrypoint,
+        sourceFile: build.sourceFile,
+        repoCommit: build?.repo?.commit,
+        nestedCommit: build?.nestedRepo?.commit,
+        timestamp: new Date().toISOString(),
+        baseHref,
+        resolvedBase,
+        location: window.location.href
+      };
+
+      const el = document.getElementById('buildStamp');
+      if (el) {
+        el.textContent = `ENTRY=${stamp.entrypoint} | FILE=${stamp.sourceFile} | root@${stamp.repoCommit} nested@${stamp.nestedCommit} | time=${stamp.timestamp} | base=${stamp.baseHref} -> ${stamp.resolvedBase}`;
+      }
+      console.log('[recipe-engine build-stamp]', stamp);
+
+      window.addEventListener(
+        'error',
+        (event) => {
+          const target = event.target;
+          if (!target) return;
+          const tag = (target.tagName || '').toLowerCase();
+          if (tag === 'script' || tag === 'link' || tag === 'img') {
+            const url = target.src || target.href;
+            if (url) console.error('[recipe-engine resource-error]', { tag, url });
+          }
+        },
+        true
+      );
+
+      window.addEventListener('unhandledrejection', (event) => {
+        console.error('[recipe-engine unhandledrejection]', event.reason);
+      });
+
+      window.addEventListener('error', (event) => {
+        if (event?.message) console.error('[recipe-engine window-error]', event.message);
+      });
+
+      (async function assetSelfCheck() {
+        const checks = [
+          { name: 'CSS', url: 'assets/style.css' },
+          { name: 'MainJS', url: 'components/main.js' },
+          { name: 'RecipeList', url: 'recipes/list.json' }
+        ];
+
+        const results = [];
+        for (const item of checks) {
+          const bust = `__stamp=${encodeURIComponent(stamp.timestamp)}`;
+          const url = item.url.includes('?') ? `${item.url}&${bust}` : `${item.url}?${bust}`;
+          try {
+            const res = await fetch(url, { cache: 'no-store' });
+            results.push({ name: item.name, url: res.url, ok: res.ok, status: res.status });
+          } catch (err) {
+            results.push({ name: item.name, url, ok: false, status: 'fetch-failed', error: String(err) });
+          }
+        }
+
+        const loadedStyles = Array.from(document.styleSheets || [])
+          .map((s) => s.href)
+          .filter(Boolean);
+
+        console.log('[recipe-engine asset-self-check]', { results, loadedStyles });
+        const anyBad = results.some((r) => r.ok !== true);
+        if (anyBad) console.error('[recipe-engine asset-self-check] FAIL', results);
+      })();
+    })();
+  </script>
 </body>
 </html>

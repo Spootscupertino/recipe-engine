@@ -4,28 +4,69 @@
 <head>
   <meta charset="UTF-8">
   <title>Recipe Template</title>
-  <link rel="stylesheet" href="assets/style.css?v=20251226-1">
-  <meta http-equiv="refresh" content="0;url=self-defense-cooking/index.html">
-  <script>
-    // Redirect to the main app entry so previews land on the correct layout
-    window.location.replace('self-defense-cooking/index.html');
-  </script>
+  <!-- Make root previews load the real app assets/routes -->
+  <base href="self-defense-cooking/">
+  <link rel="stylesheet" href="assets/style.css?v=20251226-2">
 </head>
 <body>
-  <p>Redirecting to <a href="self-defense-cooking/index.html">self-defense-cooking/index.html</a>…</p>
   <div class="overlay">
     <div class="container">
       <header class="topbar">
         <div class="brand">
           <h1>Recipe Name</h1>
           <p class="subtitle" id="servingsLabel">Yield: 4 portions</p>
+          <div class="allergen-summary" id="allergenSummary" aria-live="polite"></div>
+          <div class="recipe-status" id="recipeStatus" aria-live="polite"></div>
         </div>
         <div class="search-card">
           <label for="recipeSearch">Find a recipe</label>
           <input id="recipeSearch" type="search" placeholder="Search recipes..." autocomplete="off" />
           <ul id="searchResults" class="search-results" hidden></ul>
         </div>
+        <div class="category-board">
+          <div class="category-head">
+            <span class="category-title">Browse by category</span>
+            <span class="category-hint">Tap a category to see the top 25 dishes</span>
+          </div>
+          <div class="category-chips" id="categoryChips"></div>
+          <ul class="category-picks" id="categoryPicks"></ul>
+        </div>
+        <section id="recipeBrowse" class="cuisine-browser" hidden>
+          <h2>Browse Recipes by Cuisine</h2>
+
+          <details>
+            <summary>Mexican</summary>
+            <ul>
+              <li data-slug="tacos">Tacos</li>
+              <li data-slug="enchiladas">Enchiladas</li>
+              <li data-slug="rice-and-beans">Rice & Beans</li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Italian</summary>
+            <ul>
+              <li data-slug="chicken-parmesan">Chicken Parmesan</li>
+              <li data-slug="spaghetti-and-meatballs">Spaghetti & Meatballs</li>
+              <li data-slug="baked-ziti">Baked Ziti</li>
+            </ul>
+          </details>
+        </section>
         <div class="controls">
+          <details class="control" id="allergenControl">
+            <summary>Allergens</summary>
+            <div class="control-body">
+              <label><input type="checkbox" class="allergen-check" value="Gluten"> Gluten</label>
+              <label><input type="checkbox" class="allergen-check" value="Dairy"> Dairy</label>
+              <label><input type="checkbox" class="allergen-check" value="Eggs"> Eggs</label>
+              <label><input type="checkbox" class="allergen-check" value="Peanuts"> Peanuts</label>
+              <label><input type="checkbox" class="allergen-check" value="Tree Nuts"> Tree Nuts</label>
+              <label><input type="checkbox" class="allergen-check" value="Soy"> Soy</label>
+              <label><input type="checkbox" class="allergen-check" value="Shellfish"> Shellfish</label>
+              <label><input type="checkbox" class="allergen-check" value="Fish"> Fish</label>
+              <label><input type="checkbox" class="allergen-check" value="Sesame"> Sesame</label>
+            </div>
+          </details>
           <details class="control" id="dietaryControl">
             <summary>Dietary Restrictions</summary>
             <div class="control-body">
@@ -63,6 +104,10 @@
             <div class="control-body">
               <input type="range" id="heatSlider" min="0" max="10" value="3">
               <div class="heat-label" id="heatLabel">Mild (3/10)</div>
+              <div class="heat-actions">
+                <button type="button" id="heatAddBtn">Add spice boost</button>
+              </div>
+              <div class="heat-reco" id="heatReco">Try a pinch of black pepper and a squeeze of lemon for gentle warmth.</div>
             </div>
           </details>
 
